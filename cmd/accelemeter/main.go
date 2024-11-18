@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math"
 	"time"
 
 	"github.com/dumacp/go-accmeter"
@@ -32,11 +33,12 @@ func main() {
 	opts = append(opts, accmeter.SetOWUF(accmeter.OWUF_25HZ))
 	opts = append(opts, accmeter.Set2gAccelerationRange())
 	opts = append(opts, accmeter.SetEnableWakeUpFunction())
-	opts = append(opts, accmeter.SetWUFC(byte(100)))
-	opts = append(opts, accmeter.SetATH(byte(0x0A)))
+	opts = append(opts, accmeter.SetWUFC(3*time.Second, accmeter.OWUF_25HZ))
+	opts = append(opts, accmeter.SetATH(0.5))
 	opts = append(opts, accmeter.SetPhysicalIrq())
 	opts = append(opts, accmeter.SetActiveHighIrq())
 	opts = append(opts, accmeter.SetWakeUpIrq())
+	opts = append(opts, accmeter.SetDisableAllTapIrq())
 
 	if reset {
 		if err := dev.Init(accmeter.StartRamReboot()); err != nil {
@@ -65,32 +67,84 @@ func main() {
 	}
 
 	if loop {
-		tickHPFiler := time.NewTicker(300 * time.Millisecond)
+		tickHPFiler := time.NewTicker(100 * time.Millisecond)
 		defer tickHPFiler.Stop()
 
 		xhp := []byte{0x00}
 		yhp := []byte{0x00}
 		zhp := []byte{0x00}
 
+		xout := []byte{0x00}
+		yout := []byte{0x00}
+		zout := []byte{0x00}
+
+		readx := 300.0
+		ready := 300.0
+		readz := 300.0
+
+		sens := accmeter.Sensivity2g
+
 		for range tickHPFiler.C {
 			if data, err := accmeter.XHP.Read(dev); err != nil {
 				log.Fatalf("error read: %v", err)
 			} else if !bytes.Equal(data, xhp) {
 				xhp = data
-				fmt.Printf("XHP: %02X\n", data)
+				read := accmeter.ReadAcceleration(data, sens)
+				if math.Abs(read) > 0.1 {
+					log.Printf("XHP: %02X (%.2f)\n", data, read)
+				}
 			}
+			if data, err := accmeter.XOUT.Read(dev); err != nil {
+				log.Fatalf("error read: %v", err)
+			} else if !bytes.Equal(data, xout) {
+				xout = data
+				read := accmeter.ReadAcceleration(data, sens)
+				if math.Abs(read-readx) > 0.5 {
+					readx = read
+					log.Printf("XOUT: %02X (%.2f)\n", data, read)
+				}
+			}
+
 			if data, err := accmeter.YHP.Read(dev); err != nil {
 				log.Fatalf("error read: %v", err)
 			} else if !bytes.Equal(data, yhp) {
 				yhp = data
-				fmt.Printf("YHP: %02X\n", data)
+				read := accmeter.ReadAcceleration(data, sens)
+				if math.Abs(read) > 0.1 {
+					log.Printf("YHP: %02X (%.2f)\n", data, read)
+				}
 			}
+			if data, err := accmeter.YOUT.Read(dev); err != nil {
+				log.Fatalf("error read: %v", err)
+			} else if !bytes.Equal(data, yout) {
+				yout = data
+				read := accmeter.ReadAcceleration(data, sens)
+				if math.Abs(read-ready) > 0.5 {
+					ready = read
+					log.Printf("YOUT: %02X (%.2f)\n", data, read)
+				}
+			}
+
 			if data, err := accmeter.ZHP.Read(dev); err != nil {
 				log.Fatalf("error read: %v", err)
 			} else if !bytes.Equal(data, zhp) {
 				zhp = data
-				fmt.Printf("ZHP: %02X\n", data)
+				read := accmeter.ReadAcceleration(data, sens)
+				if math.Abs(read) > 0.1 {
+					log.Printf("ZHP: %02X (%.2f)\n", data, read)
+				}
 			}
+			if data, err := accmeter.ZOUT.Read(dev); err != nil {
+				log.Fatalf("error read: %v", err)
+			} else if !bytes.Equal(data, zout) {
+				zout = data
+				read := accmeter.ReadAcceleration(data, sens)
+				if math.Abs(read-readz) > 0.5 {
+					readz = read
+					log.Printf("ZOUT: %02X (%.2f)\n", data, read)
+				}
+			}
+
 		}
 	}
 }
