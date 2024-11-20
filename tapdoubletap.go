@@ -3,7 +3,7 @@ package accmeter
 func SetXNegativeTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -16,7 +16,7 @@ func SetXNegativeTapIrq() OptFunc {
 func SetDisableXNegativeTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -29,7 +29,7 @@ func SetDisableXNegativeTapIrq() OptFunc {
 func SetXPositiveTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -42,7 +42,7 @@ func SetXPositiveTapIrq() OptFunc {
 func SetDisableXPositiveTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -55,7 +55,7 @@ func SetDisableXPositiveTapIrq() OptFunc {
 func SetYNegativeTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -68,7 +68,7 @@ func SetYNegativeTapIrq() OptFunc {
 func SetDisableYNegativeTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -81,7 +81,7 @@ func SetDisableYNegativeTapIrq() OptFunc {
 func SetYPositiveTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -94,7 +94,7 @@ func SetYPositiveTapIrq() OptFunc {
 func SetDisableYPositiveTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -107,7 +107,7 @@ func SetDisableYPositiveTapIrq() OptFunc {
 func SetZNegativeTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -120,7 +120,7 @@ func SetZNegativeTapIrq() OptFunc {
 func SetDisableZNegativeTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -133,7 +133,7 @@ func SetDisableZNegativeTapIrq() OptFunc {
 func SetZPositiveTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -146,7 +146,7 @@ func SetZPositiveTapIrq() OptFunc {
 func SetDisableZPositiveTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 
@@ -159,7 +159,7 @@ func SetDisableZPositiveTapIrq() OptFunc {
 func SetDisableAllTapIrq() OptFunc {
 	return func() {
 		offset := byte(0x3F)
-		if len(INC2.newValue) != 0 {
+		if len(INC3.newValue) != 0 {
 			offset = INC3.newValue[0]
 		}
 

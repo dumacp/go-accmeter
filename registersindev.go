@@ -30,3 +30,8 @@ var YOUT = Register{Name: "YOUT", Addr: 0x08, Len: 2}
 var ZOUT = Register{Name: "ZOUT", Addr: 0x0A, Len: 2}
 
 var ODCNTL = Register{Name: "ODCNTL", Addr: 0x1B, Len: 1}
+
+var STATUS_REG = Register{Name: "STATUS_REG", Addr: 0x15, Len: 1}
+var INS1 = Register{Name: "INS1", Addr: 0x12, Len: 1}
+var INS2 = Register{Name: "INS2", Addr: 0x13, Len: 1}
+var INS3 = Register{Name: "INS3", Addr: 0x14, Len: 1}

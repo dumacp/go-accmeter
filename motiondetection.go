@@ -70,3 +70,166 @@ func SetATH(threshold float64) OptFunc {
 		ATH.update = true
 	}
 }
+
+func SetXNegativeMotiodDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset | byte(0x20)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetDisableXNegativeMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset & ^byte(0x20)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetXPositiveMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset | byte(0x10)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetDisableXPositiveMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset & ^byte(0x10)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetYNegativeMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset | byte(0x08)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetDisableYNegativeMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset & ^byte(0x08)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetYPositiveMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset | byte(0x04)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetDisableYPositiveMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset & ^byte(0x04)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetZNegativeMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset | byte(0x02)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetDisableZNegativeMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset & ^byte(0x02)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetZPositiveMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset | byte(0x01)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetDisableZPositiveMotionDetectionIrq() OptFunc {
+	return func() {
+		offset := byte(0x3F)
+		if len(INC2.newValue) != 0 {
+			offset = INC2.newValue[0]
+		}
+
+		data := offset & ^byte(0x01)
+		INC2.newValue = []byte{data}
+		INC2.update = true
+	}
+}
+
+func SetDisableAllMotionDetectionIrq() OptFunc {
+	return func() {
+		INC2.newValue = []byte{0x00}
+		INC2.update = true
+	}
+}
