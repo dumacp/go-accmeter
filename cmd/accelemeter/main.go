@@ -15,11 +15,13 @@ import (
 var devname string
 var loop bool
 var reset bool
+var graph bool
 
 func init() {
 	flag.StringVar(&devname, "devname", "i2c-2", "device name")
 	flag.BoolVar(&loop, "loop", false, "read loop HPFilter registers")
 	flag.BoolVar(&reset, "reset", false, "sotfware reset")
+	flag.BoolVar(&graph, "graph", false, "graph final")
 }
 
 func main() {
@@ -210,23 +212,26 @@ func main() {
 		}
 		fmt.Println("//////////////////////////////")
 
-		if err := ui.Init(); err != nil {
-			log.Fatalf("failed to initialize termui: %v", err)
-		}
-		defer ui.Close()
+		if graph {
 
-		xPlot, _ := accmeter.Graph("X", []int{0, 0, 30, 10}, xdata)
-		yPlot, _ := accmeter.Graph("Y", []int{0, 10, 30, 20}, ydata)
-		zPlot, _ := accmeter.Graph("Z", []int{30, 0, 60, 20}, zdata)
+			if err := ui.Init(); err != nil {
+				log.Fatalf("failed to initialize termui: %v", err)
+			}
+			defer ui.Close()
 
-		ui.Render(xPlot, yPlot, zPlot)
+			xPlot, _ := accmeter.Graph("X", []int{0, 0, 30, 10}, xdata)
+			yPlot, _ := accmeter.Graph("Y", []int{0, 10, 30, 20}, ydata)
+			zPlot, _ := accmeter.Graph("Z", []int{30, 0, 60, 20}, zdata)
 
-		uiEvents := ui.PollEvents()
-		for {
-			e := <-uiEvents
-			switch e.ID {
-			case "q", "<C-c>":
-				return
+			ui.Render(xPlot, yPlot, zPlot)
+
+			uiEvents := ui.PollEvents()
+			for {
+				e := <-uiEvents
+				switch e.ID {
+				case "q", "<C-c>":
+					return
+				}
 			}
 		}
 
